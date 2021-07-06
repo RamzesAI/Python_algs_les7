@@ -1,0 +1,47 @@
+'''
+Задание 2. Отсортируйте по возрастанию методом слияния одномерный вещественный массив, заданный случайными числами
+на промежутке [0; 50). Выведите на экран исходный и отсортированный массивы.
+'''
+import random
+def merge_sort(user_list):
+    if len(user_list) == 1 or len(user_list) == 0:
+        return
+    l_part = user_list[:len(user_list) // 2]
+    r_part = user_list[len(user_list) // 2:]
+    merge_sort(l_part)
+    merge_sort(r_part)
+
+    n = m = k = 0
+    sorted_list = [0] * (len(l_part) + len(r_part))
+    while n < len(l_part) and m < len(r_part):
+        if l_part[n] <= r_part[m]:
+            sorted_list[k] = l_part[n]
+            n += 1
+        else:
+            sorted_list[k] = r_part[m]
+            m += 1
+        k += 1
+    while n < len(l_part):
+        sorted_list[k] = l_part[n]
+        n += 1
+        k += 1
+    while m < len(r_part):
+        sorted_list[k] = r_part[m]
+        m += 1
+        k += 1
+    for i in range(len(user_list)):
+        user_list[i] = sorted_list[i]
+    return user_list
+
+def rand_list(a, b):
+    m = 30
+    ls = []
+    for i in range(m):
+        ls.append(random.randint(a, b))
+    return ls
+
+user_list = rand_list(0, 50)
+print(user_list)
+
+sorted_list = merge_sort(user_list)
+print(sorted_list)
